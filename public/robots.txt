@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /gp-8f3a2k7m
+Disallow: /gp-8f3a2k7m/
+Disallow: /login
+Disallow: /cadastro
+Disallow: /checkout
+Disallow: /configuracoes
+
+Sitemap: https://lumiere.opensung.shop/sitemap.xml

@@ -3,10 +3,10 @@ import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import { supabase, isConfigured } from '../../lib/supabase'
 
 const links = [
-  { href: '/admin', label: '📊 Dashboard', exact: true },
-  { href: '/admin/produtos', label: '💍 Produtos' },
-  { href: '/admin/colecoes', label: '📁 Coleções' },
-  { href: '/admin/pedidos', label: '📦 Pedidos' },
+  { href: '/gp-8f3a2k7m', label: '📊 Dashboard', exact: true },
+  { href: '/gp-8f3a2k7m/perolla', label: '💍 Produtos' },
+  { href: '/gp-8f3a2k7m/colecoes', label: '📁 Categorias' },
+  { href: '/gp-8f3a2k7m/pedidos', label: '📦 Pedidos' },
 ]
 
 export default function AdminLayout() {
@@ -16,14 +16,21 @@ export default function AdminLayout() {
 
   useEffect(() => {
     if (!isConfigured) return
-    const check = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || (!session && event !== 'INITIAL_SESSION')) {
+        navigate('/login'); return
+      }
+      if (session) {
+        if (session.user.app_metadata?.role !== 'admin') { navigate('/'); return }
+        setReady(true)
+      }
+    })
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) { navigate('/login'); return }
-      const role = session.user.app_metadata?.role
-      if (role !== 'admin') { navigate('/'); return }
+      if (session.user.app_metadata?.role !== 'admin') { navigate('/'); return }
       setReady(true)
-    }
-    check()
+    })
+    return () => subscription.unsubscribe()
   }, [navigate])
 
   const handleLogout = async () => {
@@ -38,11 +45,11 @@ export default function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="w-56 bg-gray-900 text-gray-300 flex flex-col py-6 flex-shrink-0">
-        <div className="px-6 mb-8 font-serif text-white text-lg tracking-widest">LUMIÈRE</div>
+        <div className="px-6 mb-8 font-serif text-white text-lg tracking-widest">PÉROLA DO TAPAJÓS</div>
         <p className="px-6 text-[10px] uppercase tracking-widest text-gray-500 mb-2">Admin</p>
         <nav className="flex-1">
           {links.map(({ href, label, exact }) => {
-            const active = exact ? location.pathname === href : location.pathname.startsWith(href) && href !== '/admin'
+            const active = exact ? location.pathname === href : location.pathname.startsWith(href) && href !== '/gp-8f3a2k7m'
             return (
               <Link key={href} to={href} className={`block px-6 py-2.5 text-sm transition-colors ${active ? 'bg-gray-800 text-white' : 'hover:text-white'}`}>
                 {label}

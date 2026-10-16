@@ -1,4 +1,4 @@
-const TEXT = '🚚 Frete grátis acima de R$ 299 &nbsp;&nbsp;•&nbsp;&nbsp; 💳 Parcelamento em até 6x sem juros &nbsp;&nbsp;•&nbsp;&nbsp; 📦 Envio para todo o Brasil &nbsp;&nbsp;•&nbsp;&nbsp; 📲 @lumiere.semijoias &nbsp;&nbsp;•&nbsp;&nbsp; ⭐ +4.800 clientes satisfeitas &nbsp;&nbsp;•&nbsp;&nbsp; '
+const TEXT = '📦 Envio para todo o Brasil &nbsp;&nbsp;•&nbsp;&nbsp; 📲 @perolladotapajos &nbsp;&nbsp;•&nbsp;&nbsp; 💍 Semijoias, folheados e aço inoxidável &nbsp;&nbsp;•&nbsp;&nbsp; 🌊 A beleza que brilha como o Rio &nbsp;&nbsp;•&nbsp;&nbsp; 📲 Compre pelo WhatsApp &nbsp;&nbsp;•&nbsp;&nbsp; '
 
 export default function AnnouncementBar() {
   const repeated = TEXT + TEXT

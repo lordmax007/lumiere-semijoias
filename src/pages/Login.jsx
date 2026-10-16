@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase, isConfigured } from '../lib/supabase'
+import { loginSchema } from '../lib/validators'
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' })
@@ -13,7 +14,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!form.email.trim() || !form.password) { setError('Preencha todos os campos'); return }
+    const v = loginSchema.safeParse({ email: form.email.trim(), password: form.password })
+    if (!v.success) { setError(v.error.errors[0].message); return }
     if (!isConfigured) { setError('Supabase não configurado.'); return }
     setLoading(true)
     const { error: err } = await supabase.auth.signInWithPassword({ email: form.email.trim(), password: form.password })
@@ -43,7 +45,10 @@ export default function Login() {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 mt-4">
+          <Link to="/esqueci-senha" className="underline hover:text-gray-800">Esqueci minha senha</Link>
+        </p>
+        <p className="text-center text-sm text-gray-500 mt-2">
           Não tem conta? <Link to="/cadastro" className="underline hover:text-gray-800">Cadastrar</Link>
         </p>
       </div>

@@ -9,7 +9,7 @@ export default function BrandStory() {
         Nascemos da crença de que toda mulher merece brilhar
       </h2>
       <p className="text-gray-500 text-sm leading-relaxed">
-        Cada peça Lumière é criada com atenção ao detalhe, usando materiais de alta qualidade e banhos de ouro que duram.
+        Cada peça Pérola do Tapajós é criada com atenção ao detalhe, usando materiais de alta qualidade e banhos de ouro que duram.
         Acreditamos que elegância não precisa de um preço inacessível — e é isso que nos move todos os dias.
       </p>
       <div className="mt-8 w-16 h-px bg-gold mx-auto" />

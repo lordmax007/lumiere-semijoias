@@ -3,7 +3,13 @@
 <head>
 <script>
   var l = window.location;
-  l.replace(l.protocol+'//'+l.hostname+(l.port?':'+l.port:'')+l.pathname.split('/').slice(0,2).join('/')+'/?p=/'+l.pathname.slice(l.pathname.indexOf('/',1)+1)+(l.search?'&q='+l.search.slice(1):'')+(l.hash||''));
+  l.replace(
+    l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    l.pathname.split('/').slice(0, 2).join('/') + '/?/' +
+    l.pathname.slice(l.pathname.indexOf('/', 1) + 1).replace(/&/g, '~and~') +
+    (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+    l.hash
+  );
 </script>
 </head>
 </html>

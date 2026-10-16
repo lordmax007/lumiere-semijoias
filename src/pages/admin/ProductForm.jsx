@@ -93,7 +93,7 @@ export default function ProductForm() {
   return (
     <div>
       <div className="flex items-center gap-4 mb-8">
-        <Link to="/admin/produtos" className="text-gray-400 hover:text-gray-700 text-sm">← Produtos</Link>
+        <Link to="/gp-8f3a2k7m/produtos" className="text-gray-400 hover:text-gray-700 text-sm">← Produtos</Link>
         <h1 className="font-serif text-3xl font-light">{isNew ? 'Novo produto' : 'Editar produto'}</h1>
       </div>
 

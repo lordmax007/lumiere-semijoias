@@ -110,8 +110,8 @@ export default function Header() {
         </nav>
 
         {/* Logo centrada */}
-        <Link to="/" className="absolute left-1/2 -translate-x-1/2 font-serif text-2xl tracking-[0.25em] font-light whitespace-nowrap">
-          LUMIÈRE
+        <Link to="/" className="absolute left-1/2 -translate-x-1/2 font-serif text-sm tracking-[0.12em] sm:text-xl sm:tracking-[0.2em] lg:text-2xl lg:tracking-[0.25em] font-light whitespace-nowrap">
+          PÉROLA DO TAPAJÓS
         </Link>
 
         {/* Ícones direita */}
@@ -150,6 +150,12 @@ export default function Header() {
                       <p className="text-xs font-medium truncate">{user.user_metadata?.name || 'Minha conta'}</p>
                       <p className="text-[10px] text-gray-400 truncate">{user.email}</p>
                     </div>
+                    {user?.app_metadata?.role === 'admin' && (
+                      <Link to="/gp-8f3a2k7m" onClick={() => setUserOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-yellow-700 hover:bg-yellow-50 transition-colors">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                        Painel Admin
+                      </Link>
+                    )}
                     <Link to="/meus-pedidos" onClick={() => setUserOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50 transition-colors">
                       <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
                       Meus pedidos
@@ -194,7 +200,7 @@ export default function Header() {
           <div className="absolute inset-0 bg-black/40" onClick={() => setMenuOpen(false)} />
           <div className="absolute left-0 top-0 bottom-0 w-72 bg-white flex flex-col overflow-y-auto shadow-2xl">
             <div className="flex items-center justify-between p-4 border-b">
-              <span className="font-serif text-xl tracking-widest">LUMIÈRE</span>
+              <span className="font-serif text-xl tracking-widest">PÉROLA DO TAPAJÓS</span>
               <button onClick={() => setMenuOpen(false)} className="text-xl text-gray-400">✕</button>
             </div>
             <nav className="p-4 flex flex-col gap-1 flex-1">

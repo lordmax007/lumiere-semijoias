@@ -2,25 +2,45 @@ import raw from './perolla-products.json'
 
 const normalize = (cat) => cat === 'Conjuntos' ? 'Conjunto' : cat
 
-export const perollaProducts = raw.map(p => ({ ...p, categoria: normalize(p.categoria) }))
+// Corrige caminhos de imagem para funcionar tanto no Netlify quanto no GitHub Pages
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '')
+const fixImg = (path) => path ? BASE + path : path
+
+export const perollaProducts = raw.map(p => ({
+  ...p,
+  categoria: normalize(p.categoria),
+  imagens: (p.imagens || []).map(fixImg),
+}))
 
 export const catSlug = (cat) =>
   cat.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-')
 
-// Categorias originais
+// Categorias originais — image é configurável: troque o path para mudar a foto da categoria
+const CAT_IMAGES = {
+  'Brincos':   '/imgs/categorias/brincos.webp',
+  'Anéis':     '/imgs/categorias/aneis.webp',
+  'Colares':   '/imgs/categorias/colares.webp',
+  'Correntes': '/imgs/categorias/correntes.webp',
+  'Pulseiras': '/imgs/categorias/pulseiras.webp',
+  'Braceletes':'/imgs/categorias/braceletes.webp',
+  'Conjunto':  '/imgs/categorias/conjuntos.webp',
+  'Choker':    '/imgs/categorias/choker.webp',
+}
+
 const CAT_ORDER = ['Brincos', 'Anéis', 'Colares', 'Correntes', 'Pulseiras', 'Braceletes', 'Conjunto', 'Choker']
 
 export const perollaCollections = CAT_ORDER.map(name => ({
   name, slug: catSlug(name),
+  image: CAT_IMAGES[name] || null,
   count: perollaProducts.filter(p => p.categoria === name).length,
   extra: false,
 })).filter(c => c.count > 0)
 
-// Categorias extras — produto aparece na original E na extra (sem duplicar)
+// Categorias extras — image configurável; null = fallback com inicial dourada
 export const EXTRA_CATS = [
-  { name: 'Aço inoxidável', slug: 'aco-inoxidavel', field: 'aco_inoxidavel' },
-  { name: 'Masculina',      slug: 'masculina',       field: 'masculina' },
-  { name: 'Infantil',       slug: 'infantil',        field: 'infantil' },
+  { name: 'Aço inoxidável', slug: 'aco-inoxidavel', field: 'aco_inoxidavel', image: '/imgs/perolla/4446744-1.webp' },
+  { name: 'Masculina',      slug: 'masculina',       field: 'masculina',      image: null },
+  { name: 'Infantil',       slug: 'infantil',        field: 'infantil',       image: null },
 ]
 
 export const perollaExtraCollections = EXTRA_CATS.map(c => ({
