@@ -135,7 +135,7 @@ export default function Header() {
             </button>
           )}
           {/* Ícone de usuário */}
-          <div ref={userRef} className="relative hidden sm:block">
+          <div ref={userRef} className="relative">
             {user ? (
               <>
                 <button onClick={() => setUserOpen(o => !o)} aria-label="Minha conta"
@@ -217,9 +217,43 @@ export default function Header() {
                 )
               )}
             </nav>
-            <div className="p-4 border-t space-y-1">
-              <Link to="/login" className="block text-sm py-2 hover:text-gold" onClick={() => setMenuOpen(false)}>Minha Conta</Link>
-              <Link to="/cadastro" className="block text-sm py-2 hover:text-gold" onClick={() => setMenuOpen(false)}>Cadastrar</Link>
+            <div className="border-t">
+              {user ? (
+                <>
+                  <div className="px-4 py-3 bg-gray-50 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gray-900 text-white text-sm flex items-center justify-center font-medium shrink-0">
+                      {(user.user_metadata?.name || user.email)?.[0]?.toUpperCase()}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-medium truncate">{user.user_metadata?.name || 'Minha conta'}</p>
+                      <p className="text-[10px] text-gray-400 truncate">{user.email}</p>
+                    </div>
+                  </div>
+                  {user?.app_metadata?.role === 'admin' && (
+                    <Link to="/gp-8f3a2k7m" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-yellow-700 hover:bg-yellow-50 transition-colors">
+                      <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                      Painel Admin
+                    </Link>
+                  )}
+                  <Link to="/meus-pedidos" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-gray-50 transition-colors">
+                    <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    Meus pedidos
+                  </Link>
+                  <Link to="/configuracoes" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-gray-50 transition-colors">
+                    <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><circle cx={12} cy={12} r={3} /></svg>
+                    Configurações
+                  </Link>
+                  <button onClick={() => { setMenuOpen(false); handleLogout() }} className="flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition-colors w-full text-left">
+                    <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                    Sair
+                  </button>
+                </>
+              ) : (
+                <div className="p-4 space-y-1">
+                  <Link to="/login" className="block text-sm py-2 hover:text-gold" onClick={() => setMenuOpen(false)}>Minha Conta</Link>
+                  <Link to="/cadastro" className="block text-sm py-2 hover:text-gold" onClick={() => setMenuOpen(false)}>Cadastrar</Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
