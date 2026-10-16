@@ -21,7 +21,7 @@ export default function Login() {
     const { error: err } = await supabase.auth.signInWithPassword({ email: form.email.trim(), password: form.password })
     setLoading(false)
     if (err) { setError('E-mail ou senha incorretos'); return }
-    navigate('/')
+    window.location.href = '/'
   }
 
   return (
