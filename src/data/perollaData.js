@@ -47,7 +47,7 @@ export const perollaExtraCollections = EXTRA_CATS.map(c => ({
   ...c,
   count: perollaProducts.filter(p => p[c.field]).length,
   extra: true,
-}))
+})).filter(c => c.count > 0)
 
 // Resolve slug → lista de produtos (original ou extra)
 export function getProductsBySlug(slug) {
