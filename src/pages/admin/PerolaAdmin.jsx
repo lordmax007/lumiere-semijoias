@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase, isConfigured } from '../../lib/supabase'
 
-const CATS = ['Brincos','Anéis','Colares','Correntes','Pulseiras','Braceletes','Conjuntos','Choker','Aço inoxidável','Masculina','Infantil']
+const DEFAULT_CATS = ['Brincos','Anéis','Colares','Correntes','Pulseiras','Braceletes','Conjuntos','Choker','Aço inoxidável','Masculina','Infantil']
 const empty = { nome: '', categoria: 'Brincos', preco: '', descricao: '', disponivel: true }
 
 export default function PerolaAdmin() {
@@ -149,10 +149,12 @@ export default function PerolaAdmin() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">Categoria *</label>
-                  <select value={form.categoria} onChange={set('categoria')}
-                    className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600">
-                    {CATS.map(c => <option key={c}>{c}</option>)}
-                  </select>
+                  <input list="cats-list" value={form.categoria} onChange={set('categoria')} required
+                    placeholder="Ex: Brincos"
+                    className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600" />
+                  <datalist id="cats-list">
+                    {[...new Set([...DEFAULT_CATS, ...products.map(p => p.categoria)])].map(c => <option key={c} value={c} />)}
+                  </datalist>
                 </div>
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">Preço (R$) *</label>
