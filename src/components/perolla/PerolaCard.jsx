@@ -135,7 +135,7 @@ export default function PerolaCard({ p }) {
         <div className="aspect-square overflow-hidden bg-gray-100">
           {img
             ? <img src={img} alt={p.nome} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-            : <div className="w-full h-full flex items-center justify-center text-gray-200 text-4xl">💍</div>
+            : <div className="w-full h-full flex items-start justify-center pt-8 text-7xl">💍</div>
           }
         </div>
         <div className="p-3 flex flex-col gap-0.5 flex-1">
