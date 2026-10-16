@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { getCatName, perollaCollections, perollaExtraCollections, catSlug } from '../data/perollaData'
+import { getCatName, perollaCollections, perollaExtraCollections, getProductsBySlug } from '../data/perollaData'
 import { usePerollaProducts } from '../hooks/usePerollaProducts'
 import PerolaCarousel from '../components/perolla/PerolaCarousel'
 import PerolaCard from '../components/perolla/PerolaCard'
@@ -10,8 +10,11 @@ export default function PerolaCategoria() {
   const allCols = [...perollaCollections, ...perollaExtraCollections]
   const col = allCols.find(c => c.slug === categoria)
   const catName = col ? col.name : getCatName(categoria)
-  const products = allProducts
-    .filter(p => catSlug(p.categoria) === categoria)
+  // getProductsBySlug suporta categorias extras (aco-inoxidavel, masculina, infantil) via campo booleano
+  const baseProducts = getProductsBySlug(categoria)
+  const ids = new Set(allProducts.map(p => p.id))
+  const products = baseProducts
+    .filter(p => ids.has(p.id))
     .sort((a, b) => b.disponivel - a.disponivel)
 
   return (

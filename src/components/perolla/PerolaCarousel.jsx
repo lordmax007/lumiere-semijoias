@@ -54,7 +54,7 @@ export default function PerolaCarousel({ activeSlug }) {
     <div className="relative bg-white border-b border-gray-100 px-4 py-4">
       <button
         onClick={() => scroll(-1)}
-        className="hidden sm:flex absolute left-1 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-gray-500 hover:border-gold hover:text-gold transition-colors"
+        className="flex absolute left-1 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-gray-500 hover:border-gold hover:text-gold transition-colors"
         aria-label="Categorias anteriores"
       >‹</button>
 
@@ -70,7 +70,7 @@ export default function PerolaCarousel({ activeSlug }) {
 
       <button
         onClick={() => scroll(1)}
-        className="hidden sm:flex absolute right-1 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-gray-500 hover:border-gold hover:text-gold transition-colors"
+        className="flex absolute right-1 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-gray-500 hover:border-gold hover:text-gold transition-colors"
         aria-label="Próximas categorias"
       >›</button>
     </div>
