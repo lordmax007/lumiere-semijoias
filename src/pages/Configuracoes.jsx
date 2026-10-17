@@ -162,11 +162,19 @@ export default function Configuracoes() {
 
           <div className="bg-red-50 rounded-card p-5 border border-red-100">
             <h3 className="font-medium text-sm text-red-700 mb-1">Excluir conta</h3>
-            <p className="text-xs text-red-400 mb-4">Esta ação é irreversível. Todos os seus dados serão removidos.</p>
-            <a href="mailto:contato@lumiere.com.br?subject=Excluir minha conta"
-              className="text-sm text-red-500 hover:underline">
-              Solicitar exclusão por e-mail →
-            </a>
+            <p className="text-xs text-red-400 mb-4">Esta ação é irreversível. Todos os seus dados serão removidos permanentemente.</p>
+            <button onClick={async () => {
+              if (!window.confirm('Tem certeza? Esta ação é irreversível e todos os seus dados serão excluídos.')) return
+              setSaving(true)
+              const { error } = await supabase.rpc('delete_my_account')
+              setSaving(false)
+              if (error) { flash('error', 'Erro ao excluir conta. Tente novamente.'); return }
+              await supabase.auth.signOut()
+              window.location.href = '/'
+            }} disabled={saving}
+              className="bg-red-600 text-white px-6 py-2.5 rounded-btn text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-60">
+              {saving ? 'Excluindo...' : 'Excluir minha conta'}
+            </button>
           </div>
         </div>
       )}
