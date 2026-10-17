@@ -18,11 +18,11 @@ export default function FormasPagamento() {
 
       <div style={card}>
         <h2 style={{ ...h2, margin:'0 0 8px' }}>💳 Cartão de crédito ou débito</h2>
-        <p style={{ margin:0 }}>Pagamento via <strong>link seguro da InfinitePay</strong>, enviado pelo WhatsApp. Aceitamos as principais bandeiras (Visa, Mastercard, Elo, Amex). Aprovação em até <strong>[PREENCHER]</strong> horas.</p>
+        <p style={{ margin:0 }}>Pagamento diretamente pelo WhatsApp (Pix à vista).</p>
       </div>
 
       <h2 style={h2}>Segurança da compra</h2>
-      <p>Os pagamentos são processados diretamente pela <strong>InfinitePay</strong>, empresa regulada pelo Banco Central do Brasil. <strong>Nenhum dado de cartão é armazenado no site da Pérolla.</strong> Toda comunicação é criptografada via TLS/HTTPS.</p>
+      <p>Todo atendimento é feito pelo WhatsApp. Nenhum dado financeiro é armazenado no site.</p>
 
       <p>Dúvidas? Fale pelo <a href="https://wa.me/5593992175713" style={{ color:'#D4AF37' }}>WhatsApp (93) 99217-5713</a>.</p>
     </div>

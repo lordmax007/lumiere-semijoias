@@ -4,7 +4,7 @@ import SEOMeta from '../components/SEOMeta'
 
 const ITEMS = [
   ['Como comprar?', 'Navegue pelo catálogo, escolha a peça que quiser e clique em "Comprar via WhatsApp". Você será redirecionada direto para conversar com a loja e confirmar o pedido. Simples assim!'],
-  ['Quais as formas de pagamento?', 'Aceitamos Pix (à vista) e cartão de crédito/débito via link de pagamento gerado pela InfinitePay. O link é enviado pelo WhatsApp após a confirmação do pedido.'],
+  ['Quais as formas de pagamento?', 'Aceitamos Pix à vista. O pagamento é combinado diretamente pelo WhatsApp após a confirmação do pedido.'],
   ['Qual o prazo de entrega?', '[PREENCHER] dias úteis após a confirmação do pagamento, dependendo da sua região.'],
   ['Como funciona a troca?', <>Você tem direito à troca em caso de defeito ou arrependimento. Veja todos os detalhes na nossa <Link to="/trocas" style={{ color:'#D4AF37' }}>Política de Trocas e Devoluções</Link>.</>],
   ['Como cuidar das semijoias?', 'Evite contato com perfume, água do mar, piscina, suor excessivo e atrito. Guarde cada peça separada em um saquinho ou caixinha. Limpe com um pano seco e macio após usar.'],

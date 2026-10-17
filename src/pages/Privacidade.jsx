@@ -39,7 +39,7 @@ export default function Privacidade() {
       <h2 style={h2}>5. Com quem compartilhamos</h2>
       <ul>
         <li><strong>Supabase</strong> (supabase.io) — armazenamento de dados e autenticação;</li>
-        <li><strong>InfinitePay</strong> — processamento de pagamentos;</li>
+        <li></li>
         <li><strong>Resend</strong> — envio de e-mails transacionais.</li>
       </ul>
       <p>Não vendemos dados pessoais a terceiros.</p>

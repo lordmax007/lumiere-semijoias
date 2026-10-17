@@ -29,7 +29,7 @@ export default function Checkout() {
     setLoading(true)
 
     try {
-      // Chama a edge function do Supabase que cria o pedido e retorna URL InfinitePay
+      
       if (isConfigured && supabase) {
         const { data, error: fnErr } = await supabase.functions.invoke('checkout', {
           body: { items: items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty, variant: i.variant })), customer: form, total },
@@ -116,7 +116,7 @@ export default function Checkout() {
             {loading ? 'Processando...' : 'Ir para o pagamento →'}
           </button>
 
-          <p className="text-xs text-gray-400 text-center mt-3">🔒 Pagamento processado com segurança pela InfinitePay</p>
+          <p className="text-xs text-gray-400 text-center mt-3">🔒 Pagamento combinado com segurança pelo WhatsApp</p>
         </div>
       </form>
     </div>
