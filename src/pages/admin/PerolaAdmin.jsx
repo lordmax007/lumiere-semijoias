@@ -8,6 +8,7 @@ export default function PerolaAdmin() {
   const [products, setProducts] = useState([])
   const [form, setForm]         = useState(empty)
   const [editing, setEditing]   = useState(null) // id ou null
+  const [novaCategoria, setNovaCategoria] = useState('')
   const [open, setOpen]         = useState(false)
   const [images, setImages]     = useState([])
   const [uploading, setUploading] = useState(false)
@@ -24,10 +25,13 @@ export default function PerolaAdmin() {
 
   const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
 
-  const openNew = () => { setForm(empty); setImages([]); setEditing(null); setError(''); setOpen(true) }
+  const openNew = () => { setForm(empty); setImages([]); setEditing(null); setError(''); setNovaCategoria(''); setOpen(true) }
 
   const openEdit = p => {
-    setForm({ nome: p.nome, categoria: p.categoria, preco: String(p.preco), descricao: p.descricao || '', disponivel: p.disponivel })
+    const cats = [...new Set([...DEFAULT_CATS, ...products.map(x => x.categoria)])]
+    const isKnown = cats.includes(p.categoria)
+    setForm({ nome: p.nome, categoria: isKnown ? p.categoria : '__nova__', preco: String(p.preco), descricao: p.descricao || '', disponivel: p.disponivel })
+    setNovaCategoria(isKnown ? '' : p.categoria)
     setImages(p.imagens || [])
     setEditing(p.id)
     setError('')
@@ -58,8 +62,10 @@ export default function PerolaAdmin() {
     if (!form.nome.trim() || !form.preco) { setError('Nome e preço obrigatórios'); return }
     const preco = parseFloat(form.preco.replace(',', '.'))
     if (isNaN(preco) || preco <= 0) { setError('Preço inválido'); return }
+    const categoria = form.categoria === '__nova__' ? novaCategoria.trim() : form.categoria
+    if (!categoria) { setError('Digite o nome da nova categoria'); return }
     setSaving(true)
-    const payload = { nome: form.nome.trim(), categoria: form.categoria, preco, descricao: form.descricao.trim(), disponivel: form.disponivel, imagens: images }
+    const payload = { nome: form.nome.trim(), categoria, preco, descricao: form.descricao.trim(), disponivel: form.disponivel, imagens: images }
     const q = editing
       ? supabase.from('perolla_products').update(payload).eq('id', editing)
       : supabase.from('perolla_products').insert(payload)
@@ -149,12 +155,18 @@ export default function PerolaAdmin() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">Categoria *</label>
-                  <input list="cats-list" value={form.categoria} onChange={set('categoria')} required
-                    placeholder="Ex: Brincos"
-                    className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600" />
-                  <datalist id="cats-list">
-                    {[...new Set([...DEFAULT_CATS, ...products.map(p => p.categoria)])].map(c => <option key={c} value={c} />)}
-                  </datalist>
+                  <select value={form.categoria} onChange={set('categoria')} required
+                    className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600 bg-white">
+                    {[...new Set([...DEFAULT_CATS, ...products.map(p => p.categoria)])].map(c => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                    <option value="__nova__">➕ Nova categoria...</option>
+                  </select>
+                  {form.categoria === '__nova__' && (
+                    <input value={novaCategoria} onChange={e => setNovaCategoria(e.target.value)}
+                      placeholder="Nome da nova categoria" required
+                      className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600 mt-2" />
+                  )}
                 </div>
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">Preço (R$) *</label>
