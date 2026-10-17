@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase, isConfigured } from '../../lib/supabase'
 
 const DEFAULT_CATS = ['Brincos','Anéis','Colares','Correntes','Pulseiras','Braceletes','Conjuntos','Choker','Aço inoxidável','Masculina','Infantil']
-const empty = { nome: '', categoria: 'Brincos', preco: '', descricao: '', disponivel: true }
+const empty = { nome: '', categoria: 'Brincos', preco: '', estoque: '1', descricao: '', disponivel: true }
 
 export default function PerolaAdmin() {
   const [products, setProducts] = useState([])
@@ -30,7 +30,7 @@ export default function PerolaAdmin() {
   const openEdit = p => {
     const cats = [...new Set([...DEFAULT_CATS, ...products.map(x => x.categoria)])]
     const isKnown = cats.includes(p.categoria)
-    setForm({ nome: p.nome, categoria: isKnown ? p.categoria : '__nova__', preco: String(p.preco), descricao: p.descricao || '', disponivel: p.disponivel })
+    setForm({ nome: p.nome, categoria: isKnown ? p.categoria : '__nova__', preco: String(p.preco), estoque: String(p.estoque ?? 1), descricao: p.descricao || '', disponivel: p.disponivel })
     setNovaCategoria(isKnown ? '' : p.categoria)
     setImages(p.imagens || [])
     setEditing(p.id)
@@ -65,7 +65,8 @@ export default function PerolaAdmin() {
     const categoria = form.categoria === '__nova__' ? novaCategoria.trim() : form.categoria
     if (!categoria) { setError('Digite o nome da nova categoria'); return }
     setSaving(true)
-    const payload = { nome: form.nome.trim(), categoria, preco, descricao: form.descricao.trim(), disponivel: form.disponivel, imagens: images }
+    const estoque = parseInt(form.estoque) || 0
+    const payload = { nome: form.nome.trim(), categoria, preco, estoque, descricao: form.descricao.trim(), disponivel: form.disponivel, imagens: images }
     const q = editing
       ? supabase.from('perolla_products').update(payload).eq('id', editing)
       : supabase.from('perolla_products').insert(payload)
@@ -173,6 +174,11 @@ export default function PerolaAdmin() {
                   <input value={form.preco} onChange={set('preco')} placeholder="89,90"
                     className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600" />
                 </div>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">Estoque</label>
+                <input type="number" min="0" value={form.estoque} onChange={set('estoque')} placeholder="1"
+                  className="w-full border border-gray-300 rounded-btn px-3 py-2.5 text-sm outline-none focus:border-gray-600" />
               </div>
               <div>
                 <label className="block text-xs text-gray-500 mb-1">Descrição</label>
