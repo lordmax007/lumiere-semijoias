@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase, isConfigured } from '../../lib/supabase'
+import { validateImageFile } from '../../lib/validators'
 
 const DEFAULT_CATS = ['Brincos','Anéis','Colares','Correntes','Pulseiras','Braceletes','Conjuntos','Choker','Aço inoxidável','Masculina','Infantil']
 const empty = { nome: '', categoria: 'Brincos', preco: '', estoque: '1', descricao: '', disponivel: true }
@@ -43,9 +44,10 @@ export default function PerolaAdmin() {
     setUploading(true)
     const urls = []
     for (const file of files) {
-      if (!['image/jpeg','image/png','image/webp'].includes(file.type)) continue
-      if (file.size > 5 * 1024 * 1024) continue
-      const path = `${Date.now()}-${file.name.replace(/[^a-z0-9.]/gi, '-')}`
+      const valid = await validateImageFile(file)
+      if (!valid) continue
+      const ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z]/g, '') || 'jpg'
+      const path = `${crypto.randomUUID()}.${ext}`
       const { error } = await supabase.storage.from('produtos').upload(path, file, { upsert: true })
       if (!error) {
         const { data } = supabase.storage.from('produtos').getPublicUrl(path)
