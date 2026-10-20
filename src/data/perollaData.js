@@ -40,7 +40,7 @@ export const perollaCollections = CAT_ORDER.map(name => ({
 export const EXTRA_CATS = [
   { name: 'Aço inoxidável', slug: 'aco-inoxidavel', field: 'aco_inoxidavel', image: 'https://gtksdnxcakkuobtylibj.supabase.co/storage/v1/object/public/produtos/perolla/4446744-1.webp' },
   { name: 'Masculina',      slug: 'masculina',       field: 'masculina',      image: null },
-  { name: 'Infantil',       slug: 'infantil',        field: 'infantil',       image: null },
+  { name: 'Infantil',       slug: 'infantil',        field: 'infantil',       image: 'https://gtksdnxcakkuobtylibj.supabase.co/storage/v1/object/public/produtos/perolla/infantil-1792534971847-x32983x0r5p.jpeg' },
 ]
 
 export const perollaExtraCollections = EXTRA_CATS.map(c => ({
