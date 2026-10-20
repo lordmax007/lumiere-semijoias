@@ -50,11 +50,11 @@ export const perollaExtraCollections = EXTRA_CATS.map(c => ({
 })).filter(c => c.count > 0)
 
 // Resolve slug → lista de produtos (original ou extra)
-export function getProductsBySlug(slug) {
+export function getProductsBySlug(slug, products = perollaProducts) {
   const extra = EXTRA_CATS.find(c => c.slug === slug)
-  if (extra) return perollaProducts.filter(p => p[extra.field])
+  if (extra) return products.filter(p => p[extra.field])
   const name = CAT_ORDER.find(n => catSlug(n) === slug) || (slug === 'conjuntos' ? 'Conjunto' : null)
-  if (name) return perollaProducts.filter(p => p.categoria === name)
+  if (name) return products.filter(p => p.categoria === name)
   return []
 }
 

@@ -11,7 +11,7 @@ export default function PerolaCategoria() {
   const col = allCols.find(c => c.slug === categoria)
   const catName = col ? col.name : getCatName(categoria)
   // getProductsBySlug suporta categorias extras (aco-inoxidavel, masculina, infantil) via campo booleano
-  const products = getProductsBySlug(categoria)
+  const products = getProductsBySlug(categoria, allProducts)
     .sort((a, b) => b.disponivel - a.disponivel)
 
   return (

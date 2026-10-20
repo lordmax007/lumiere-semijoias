@@ -21,6 +21,9 @@ export function usePerollaProducts() {
           categoria: p.categoria,
           imagens: p.imagens || [],
           disponivel: p.disponivel,
+          infantil: p.infantil || false,
+          aco_inoxidavel: p.aco_inoxidavel || false,
+          masculina: p.masculina || false,
         })))
         setLoading(false)
       })
