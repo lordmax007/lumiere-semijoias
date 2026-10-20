@@ -21,6 +21,7 @@ export function usePerollaProducts() {
           categoria: p.categoria,
           imagens: p.imagens || [],
           disponivel: p.disponivel,
+          estoque: p.estoque || 0,
           infantil: p.infantil || false,
           aco_inoxidavel: p.aco_inoxidavel || false,
           masculina: p.masculina || false,
@@ -29,5 +30,9 @@ export function usePerollaProducts() {
       })
   }, [])
 
-  return { products: [...extra, ...perollaProducts], loading }
+  // Merge: priorizar Supabase, adicionar do JSON só os que não existem no Supabase
+  const supabaseNames = new Set(extra.map(p => p.nome.toLowerCase().trim()))
+  const jsonOnly = perollaProducts.filter(p => !supabaseNames.has(p.nome.toLowerCase().trim()))
+
+  return { products: [...extra, ...jsonOnly], loading }
 }
