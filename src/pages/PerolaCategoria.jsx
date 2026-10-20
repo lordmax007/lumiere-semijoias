@@ -37,7 +37,7 @@ export default function PerolaCategoria() {
 
       {/* Nav categorias — círculos com foto */}
       <div className="-mx-4 mb-8">
-        <PerolaCarousel activeSlug={categoria} />
+        <PerolaCarousel activeSlug={categoria} products={allProducts} />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">

@@ -29,7 +29,7 @@ export default function PerollaCatalogo() {
         {/* Faixa de categorias com círculos */}
         <h2 className="font-serif text-2xl font-light mb-4">Comprar por categoria</h2>
         <div className="mb-10 -mx-4">
-          <PerolaCarousel />
+          <PerolaCarousel products={perollaProducts} />
         </div>
 
         {/* Destaques */}

@@ -1,8 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { perollaCollections, perollaExtraCollections } from '../../data/perollaData'
-
-const ALL_CATS = [...perollaCollections, ...perollaExtraCollections]
+import { perollaCollections, EXTRA_CATS } from '../../data/perollaData'
 
 function CatCircle({ col, active, index }) {
   const [broken, setBroken] = useState(false)
@@ -45,8 +43,19 @@ function CatCircle({ col, active, index }) {
   )
 }
 
-export default function PerolaCarousel({ activeSlug }) {
+export default function PerolaCarousel({ activeSlug, products = [] }) {
   const track = useRef(null)
+
+  // Calcular categorias extras dinamicamente baseado nos produtos do Supabase
+  const extraCollections = useMemo(() => {
+    return EXTRA_CATS.map(c => ({
+      ...c,
+      count: products.filter(p => p[c.field]).length,
+      extra: true,
+    })).filter(c => c.count > 0)
+  }, [products])
+
+  const ALL_CATS = [...perollaCollections, ...extraCollections]
 
   const scroll = (dir) => track.current?.scrollBy({ left: dir * 200, behavior: 'smooth' })
 
